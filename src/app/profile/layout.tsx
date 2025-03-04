@@ -5,11 +5,11 @@ import DashboardNavbar from '@/components/dashboard/DashboardNavbar';
 import DashboardSidebar from '@/components/dashboard/DashboardSidebar';
 import AuthProvider from '@/components/AuthProvider';
 
-interface DashboardLayoutProps {
+interface ProfileLayoutProps {
   children: ReactNode;
 }
 
-export default function DashboardLayout({ children }: DashboardLayoutProps) {
+export default function ProfileLayout({ children }: ProfileLayoutProps) {
   return (
     <AuthProvider>
       <div className="h-screen flex flex-col">

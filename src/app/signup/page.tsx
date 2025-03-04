@@ -118,7 +118,6 @@ export default function SignupPage() {
               onChange={handleChange}
               error={errors.name}
               fullWidth
-              className="text-black"
             />
             
             <Input
@@ -130,7 +129,6 @@ export default function SignupPage() {
               onChange={handleChange}
               error={errors.email}
               fullWidth
-              className="text-black"
             />
             
             <Input
@@ -142,7 +140,6 @@ export default function SignupPage() {
               onChange={handleChange}
               error={errors.password}
               fullWidth
-              className="text-black"
             />
             
             <Input
@@ -154,7 +151,6 @@ export default function SignupPage() {
               onChange={handleChange}
               error={errors.confirmPassword}
               fullWidth
-              className="text-black"
             />
           </div>
 

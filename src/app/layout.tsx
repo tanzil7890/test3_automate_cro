@@ -1,6 +1,8 @@
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ClientLayout } from "@/components/ClientLayout";
+import { Metadata } from 'next';
+import StructuredData from "@/components/StructuredData";
 
 const spaceGrotesk = Space_Grotesk({ 
   subsets: ['latin'],
@@ -15,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>
+       
         <link rel="canonical" href="https://outhad.com" />
         <meta name="theme-color" content="#6d28d9" />
         <link rel="manifest" href="/manifest.json" />
