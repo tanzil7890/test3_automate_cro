@@ -1,0 +1,26 @@
+# https://outhad.com/robots.txt
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://outhad.com/sitemap.xml
+
+# Optimize crawling
+Crawl-delay: 1
+
+# Disallow admin and private routes
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+Disallow: /_next/static/
+
+# Allow important assets
+Allow: /images/
+Allow: /static/
+Allow: /*.js$
+Allow: /*.css$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.svg$
+Allow: /*.ico$ 

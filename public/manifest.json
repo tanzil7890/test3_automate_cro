@@ -1,0 +1,50 @@
+{
+  "name": "Outhad AI - AI-Powered E-commerce Search",
+  "short_name": "Outhad AI",
+  "description": "Transform your online store with AI-powered search technology",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6d28d9",
+  "icons": [
+    {
+      "src": "/outhad-logo.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/outhad-logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/outhad-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "shopping"],
+  "screenshots": [
+    {
+      "src": "/images/context-aware-search.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "label": "Context-Aware Search Interface"
+    },
+    {
+      "src": "/images/personlized-shoping-agent.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "label": "AI Shopping Assistant"
+    },
+    {
+      "src": "/images/data-driven-insights-boost-conversion.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "label": "Analytics Dashboard"
+    }
+  ]
+} 

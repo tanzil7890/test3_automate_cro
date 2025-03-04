@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 260 85% 5%;
+    --foreground: 0 0% 100%;
+    --card: 260 85% 5%;
+    --card-foreground: 0 0% 100%;
+    --popover: 260 85% 5%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 265 89% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 260 85% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 260 85% 10%;
+    --muted-foreground: 0 0% 63%;
+    --accent: 260 85% 10%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 260 85% 20%;
+    --input: 260 85% 20%;
+    --ring: 265 89% 50%;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 255, 255, 255;
+    --background-end-rgb: 255, 255, 255;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    letter-spacing: -0.02em;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight font-light;
+  }
+}
+
+
+
+/* Custom animations */
+@keyframes glow {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+    filter: blur(40px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+    filter: blur(48px);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-start-rgb));
+}
+.gradient-bg {
+  background: linear-gradient(135deg, rgba(245, 230, 255, 0.4) 0%, rgba(230, 249, 255, 0.4) 50%, rgba(255, 230, 249, 0.4) 100%);
+}
+/* Custom styles */
+.bg-mesh {
+  background-image: radial-gradient(#2D1967 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.1;
+}
+
+/* Enhanced button styles */
+.button-glow {
+  position: relative;
+}
+
+.button-glow::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(to right, #8B5CF6, #6D28D9);
+  filter: blur(12px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.button-glow:hover::after {
+  opacity: 0.6;
+}
+
+/* Enhanced text gradient */
+.text-gradient {
+  background: linear-gradient(to right, #8B5CF6, #6D28D9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: relative;
+}
+
+.text-gradient::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  background: inherit;
+  filter: blur(20px);
+  opacity: 0.8;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
