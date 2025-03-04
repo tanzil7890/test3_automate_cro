@@ -73,7 +73,7 @@ export default function DashboardSidebar() {
   ];
 
   return (
-    <aside className="w-64 h-full pt-16" aria-label="Sidebar">
+    <aside className="w-64 h-full pt-12" aria-label="Sidebar">
       <div className="h-full px-3 py-4 overflow-y-auto bg-gray-800">
         <ul className="space-y-2">
           {navigation.map((item) => {

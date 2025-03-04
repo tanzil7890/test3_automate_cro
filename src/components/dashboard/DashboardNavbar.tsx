@@ -97,14 +97,14 @@ export default function DashboardNavbar() {
               </div>
               <div className="border-b border-gray-100 my-1"></div>
               <Link
-                href="/profile"
+                href="/dashboard/profile"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 onClick={() => setIsProfileOpen(false)}
               >
                 Profile
               </Link>
               <Link
-                href="/settings"
+                href="/dashboard/settings"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 onClick={() => setIsProfileOpen(false)}
               >
