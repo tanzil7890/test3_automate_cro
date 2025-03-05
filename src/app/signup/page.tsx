@@ -3,7 +3,7 @@
 import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Button from '@/components/ui/Button';
+import Button from '@/components/ui/CustomButton';
 import Input from '@/components/ui/Input';
 
 export default function SignupPage() {
