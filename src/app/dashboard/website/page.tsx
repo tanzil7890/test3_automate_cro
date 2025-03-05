@@ -2,24 +2,16 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { 
-  Table, 
-  TableHeader, 
-  TableBody, 
-  TableRow, 
-  TableHead, 
-  TableCell 
-} from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { PlusCircle, Edit, Trash2, MoreVertical, ExternalLink } from 'lucide-react';
-import { fetchWebsites, Website } from '@/lib/services/websiteService';
+import { Button } from '@/components/ui/button';
+import { Edit, ExternalLink, Trash2, MoreVertical, PlusCircle } from 'lucide-react';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { fetchWebsites, deleteWebsite, Website } from '@/lib/services/websiteService';
 import { formatDistanceToNow } from 'date-fns';
-
-
 
 // Component to show loading state
 const WebsitesTableSkeleton = () => {
@@ -53,6 +45,23 @@ const WebsitesTableSkeleton = () => {
 
 // Component for website actions menu
 const WebsiteActions = ({ website }: { website: Website }) => {
+  const router = useRouter();
+  
+  const handleDelete = async () => {
+    if (!confirm('Are you sure you want to delete this website? This action cannot be undone.')) {
+      return;
+    }
+    
+    try {
+      await deleteWebsite(website.id);
+      // Refresh the page to show updated list
+      router.refresh();
+    } catch (err) {
+      console.error('Error deleting website:', err);
+      alert('Failed to delete website. Please try again.');
+    }
+  };
+  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -72,7 +81,7 @@ const WebsiteActions = ({ website }: { website: Website }) => {
             <ExternalLink className="mr-2 h-4 w-4 text-black" /> Visit Site
           </a>
         </DropdownMenuItem>
-        <DropdownMenuItem className="text-destructive text-black">
+        <DropdownMenuItem className="text-destructive text-black" onClick={handleDelete}>
           <Trash2 className="mr-2 h-4 w-4 text-black" /> Delete
         </DropdownMenuItem>
       </DropdownMenuContent>

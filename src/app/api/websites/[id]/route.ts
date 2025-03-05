@@ -5,13 +5,20 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 const prisma = new PrismaClient();
 
+// Helper to safely access dynamic params
+async function getParam(params: Record<string, string>, key: string): Promise<string> {
+  return params?.[key];
+}
+
 // GET a single website by ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
-  const id = params.id;
-  
+  // Don't use params directly, extract ID from the URL path
+  const paths = request.nextUrl.pathname.split('/');
+  const id = paths[paths.length - 1];
+
   try {
     const session = await getServerSession(authOptions);
     
@@ -44,7 +51,6 @@ export async function GET(
       );
     }
     
-    // Ensure user owns the website
     if (website.userId !== user.id) {
       return NextResponse.json(
         { error: 'Not authorized to view this website' },
@@ -54,7 +60,7 @@ export async function GET(
     
     return NextResponse.json(website);
   } catch (error) {
-    console.error(`Error fetching website with ID ${id}:`, error);
+    console.error(`Error fetching website:`, error);
     return NextResponse.json(
       { error: 'An error occurred while fetching the website' },
       { status: 500 }
@@ -65,9 +71,11 @@ export async function GET(
 // PATCH to update a website
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
-  const id = params.id;
+  // Don't use params directly, extract ID from the URL path
+  const paths = request.nextUrl.pathname.split('/');
+  const id = paths[paths.length - 1];
   
   try {
     const session = await getServerSession(authOptions);
@@ -90,6 +98,9 @@ export async function PATCH(
       );
     }
     
+    // Get request body
+    const { name, url, pageType, status } = await request.json();
+    
     // Check if website exists and belongs to user
     const existingWebsite = await prisma.website.findUnique({
       where: { id },
@@ -109,35 +120,6 @@ export async function PATCH(
       );
     }
     
-    const updateData = await request.json();
-    const { name, url, pageType } = updateData;
-    
-    // Validate required fields if provided
-    if (name !== undefined && name.trim() === '') {
-      return NextResponse.json(
-        { error: 'Name cannot be empty' },
-        { status: 400 }
-      );
-    }
-    
-    if (url !== undefined) {
-      try {
-        new URL(url);
-      } catch {
-        return NextResponse.json(
-          { error: 'Invalid URL format' },
-          { status: 400 }
-        );
-      }
-    }
-    
-    if (pageType !== undefined && !['landing', 'product', 'sub'].includes(pageType)) {
-      return NextResponse.json(
-        { error: 'Page type must be one of: landing, product, sub' },
-        { status: 400 }
-      );
-    }
-    
     // Update website
     const website = await prisma.website.update({
       where: { id },
@@ -145,12 +127,14 @@ export async function PATCH(
         name: name !== undefined ? name : undefined,
         url: url !== undefined ? url : undefined,
         pageType: pageType !== undefined ? pageType : undefined,
+        status: status !== undefined ? status : undefined,
+        updatedAt: new Date(),
       },
     });
     
     return NextResponse.json(website);
   } catch (error) {
-    console.error(`Error updating website with ID ${id}:`, error);
+    console.error(`Error updating website:`, error);
     return NextResponse.json(
       { error: 'An error occurred while updating the website' },
       { status: 500 }
@@ -161,9 +145,11 @@ export async function PATCH(
 // DELETE a website
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
-  const id = params.id;
+  // Don't use params directly, extract ID from the URL path
+  const paths = request.nextUrl.pathname.split('/');
+  const id = paths[paths.length - 1];
   
   try {
     const session = await getServerSession(authOptions);
@@ -212,7 +198,7 @@ export async function DELETE(
     
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error(`Error deleting website with ID ${id}:`, error);
+    console.error(`Error deleting website:`, error);
     return NextResponse.json(
       { error: 'An error occurred while deleting the website' },
       { status: 500 }
